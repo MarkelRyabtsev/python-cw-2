@@ -15,19 +15,18 @@ class Task9:
     def start_task(self):
         helper = Helper()
         print(f'------------------------- Задача {self.task_number} -------------------------')
-        print('Определить расстояние, пройденное физическим телом за время t, если тело движется '
-              '\nс постоянным ускорением а и имеет в начальный момент времени скорость V0')
-        t = helper.set_value_simple('Время (сек)')
-        a = helper.set_value_simple('Ускорение (м/сек^2)')
-        v0 = helper.set_value_simple('Скорость в начальный момент (м/сек)')
-
-        print(f'Пройденное расстояние = {self.__get_distance(t, a, v0)}')
+        print('Определить знак заданного целого числа. Ответом должно быть «+», «-», «0». Использовать оператор case')
+        x = helper.set_real_number('x')
+        print('----------------------------------------------------------')
+        print(f'Знак заданного числа: {self.__get_sign(x)}')
         print('----------------------------------------------------------')
         self.task_ended_callback(self.task_number)
 
     @staticmethod
-    def __get_distance(t: float, a: float, v0: float) -> float:
-        return round(
-            ((v0 * t) + ((a * pow(t, 2)) / 2)),
-            2
-        )
+    def __get_sign(x: float) -> str:
+        if x > 0:
+            return '"+"'
+        elif x < 0:
+            return '"-"'
+        else:
+            return '"0"'

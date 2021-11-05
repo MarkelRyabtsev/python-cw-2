@@ -16,28 +16,22 @@ class Task13:
     def start_task(self):
         helper = Helper()
         print(f'------------------------- Задача {self.task_number} -------------------------')
-        print('Вычислить площадь поверхности и объем усеченного конуса')
-
-        r_big = helper.set_value_simple('Радиус нижнего основания')
-        r_small = helper.set_value_simple('Радиус верхнего основания', r_big, False)
-        length = helper.set_value_simple('Длина образующей')
-        height = helper.set_value_simple('Высота')
-
-        print(f'Площадь поверхности = {self.__get_area(r_big, r_small, length)}')
-        print(f'Объем = {self.__get_volume(r_big, r_small, height)}')
+        print('Определить, какая из двух фигур (круг или квадрат) имеет большую площадь. Известно, что сторона'
+              '\nквадрата равна а, радиус круга r. Вывести на экран название и значение площади большей фигуры. ')
+        a = helper.set_real_number('Сторона квадрата', True, 0)
+        r = helper.set_real_number('Радиус круга', True, 0)
+        print('----------------------------------------------------------')
+        print(f'Большую площадь имеет: {self.__get_bigger_area(a, r)}')
         print('----------------------------------------------------------')
         self.task_ended_callback(self.task_number)
 
     @staticmethod
-    def __get_area(r_big: float, r_small: float, length: float) -> float:
-        return round(
-            ((math.pi * (r_big + r_small) * length) + (math.pi * pow(r_big, 2)) + (math.pi * r_small)),
-            2
-        )
-
-    @staticmethod
-    def __get_volume(r_big: float, r_small: float, height: float) -> float:
-        return round(
-            ((1 / 3) * math.pi * (pow(r_big, 2) + pow(r_small, 2) + r_big * r_small) * height),
-            2
-        )
+    def __get_bigger_area(a: float, r: float) -> str:
+        square_area = a * a
+        circle_area = math.pi * (r * r)
+        if square_area > circle_area:
+            return f'Квадрат ({square_area})'
+        elif circle_area > square_area:
+            return f'Круг ({circle_area})'
+        else:
+            return f'Площади фигур равны ({square_area})'

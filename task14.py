@@ -1,5 +1,5 @@
 import math
-from helper import Helper
+from helper import Helper, Point
 
 
 class Task14:
@@ -16,34 +16,20 @@ class Task14:
     def start_task(self):
         helper = Helper()
         print(f'------------------------- Задача {self.task_number} -------------------------')
-        print('По данным сторонам прямоугольника вычислить его периметр, площадь и длину диагонали')
-
-        a = helper.set_value_simple('Сторона a')
-        b = helper.set_value_simple('Сторона b')
-
-        print(f'Периметр = {self.__get_perimeter(a, b)}')
-        print(f'Площадь = {self.__get_area(a, b)}')
-        print(f'Длина диагонали = {self.__get_diagonal_length(a, b)}')
+        print('Определить, попадает ли точка M(x,y) в круг радиусом r с центром в точке (x0,y0). ')
+        r = helper.set_real_number('Радиус круга', True, 0)
+        x = helper.set_real_number('x')
+        y = helper.set_real_number('y')
+        m = Point(x, y)
+        print('----------------------------------------------------------')
+        print(f'{self.__is_point_inside(m, r)}')
         print('----------------------------------------------------------')
         self.task_ended_callback(self.task_number)
 
     @staticmethod
-    def __get_perimeter(a: float, b: float) -> float:
-        return round(
-            (2 * (a + b)),
-            2
-        )
-
-    @staticmethod
-    def __get_area(a: float, b: float) -> float:
-        return round(
-            (a * b),
-            2
-        )
-
-    @staticmethod
-    def __get_diagonal_length(a: float, b: float) -> float:
-        return round(
-            (math.sqrt(pow(a, 2) + pow(b, 2))),
-            2
-        )
+    def __is_point_inside(m: Point, r: float) -> str:
+        hyp = math.sqrt(m.x ** 2 + m.y ** 2)
+        if r >= hyp:
+            return f'Точка принадлежит кругу'
+        else:
+            return f'Точка не принадлежит кругу'

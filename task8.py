@@ -32,9 +32,9 @@ class Task8:
         min_value = min([a, b, c])
 
         if a == min_value:
-            print(f'Минимальное значение: a = sin({x}) = {a})')
+            print(f'Минимальное значение: a = sin({x}) = {a}')
         elif b == min_value:
-            print(f'Минимальное значение: b = cos({x}) = {b})')
+            print(f'Минимальное значение: b = cos({x}) = {b}')
         else:
-            print(f'Минимальное значение: c = ln(|{x}|) = {c})')
+            print(f'Минимальное значение: c = ln(|{x}|) = {c}')
 

@@ -16,37 +16,34 @@ class Task16:
     def start_task(self):
         helper = Helper()
         print(f'------------------------- Задача {self.task_number} -------------------------')
-        print('Вычислить координаты точки, делящей отрезок в соотношении')
-        coordinate_list = list()
-
-        print(f'Введите координаты точки A:')
-        helper.set_value_start_letter(coordinate_list, 2, 'X')
-        point_a = Point(coordinate_list[0], coordinate_list[1])
-        coordinate_list.clear()
-
-        print(f'Введите координаты точки B:')
-        helper.set_value_start_letter(coordinate_list, 2, 'X')
-        point_b = Point(coordinate_list[0], coordinate_list[1])
-        coordinate_list.clear()
-
-        print(f'Введите соотношение деления отрезка:')
-        n1 = helper.set_value_simple('n1')
-        n2 = helper.set_value_simple('n2')
-
+        print('Вычислить значение функции Y для заданного пользователем значения X')
+        x = helper.set_real_number("X")
+        a = self.__get_a(x)
+        b = self.__get_b(x)
+        y = self.__get_y(a, b)
         print('----------------------------------------------------------')
-        print(f'A({point_a.x}, {point_a.y})')
-        print(f'B({point_b.x}, {point_b.y})')
-        print(f'Соотношение деления {n1} : {n2}')
-
-        point = self.__get_coord(point_a, point_b, n1, n2)
-
-        print(f'Координаты делящей точки = ({point.x}, {point.y})')
+        a_formula = f'cos({x})' if x >= 0 else f'sin({x})'
+        print(f'a = {a_formula} = {a}')
+        print(f'b = √(1 / ({x} + 1)) = {b}')
+        y_formula = f'1 / ({a} + {b})' if a <= b else f'{a} + √{b}'
+        print(f'y = {y_formula} = {y}')
         print('----------------------------------------------------------')
         self.task_ended_callback(self.task_number)
 
     @staticmethod
-    def __get_coord(first: Point, second: Point, n1: float, n2: float) -> Point:
-        n = n1 / n2
-        x = round((first.x + (n * second.x)) / (1 + n), 2)
-        y = round((first.y + (n * second.y)) / (1 + n), 2)
-        return Point(x, y)
+    def __get_a(x: float) -> float:
+        if x >= 0:
+            return round(math.cos(x), 4)
+        else:
+            return round(math.sin(x), 4)
+
+    @staticmethod
+    def __get_b(x: float) -> float:
+        return round(math.sqrt(1 / (x + 1)), 2)
+
+    @staticmethod
+    def __get_y(a: float, b: float) -> float:
+        if a <= b:
+            return round(1 / (a + b), 4)
+        else:
+            return round(a + math.sqrt(b), 4)

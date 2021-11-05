@@ -1,10 +1,5 @@
-from helper import Helper, Point
-
-
-class MaterialPoint:
-    def __init__(self, weight, point: Point):
-        self.weight = weight
-        self.point = point
+import math
+from helper import Helper
 
 
 class Task10:
@@ -21,50 +16,33 @@ class Task10:
     def start_task(self):
         helper = Helper()
         print(f'------------------------- Задача {self.task_number} -------------------------')
-        print('Вычислить координаты центра тяжести трех материальных точек с массами и координатами по формулам')
-
-        coordinate_list = list()
-
-        print(f'Введите координаты точки A:')
-        helper.set_value_start_letter(coordinate_list, 2, 'X')
-        point_a = Point(coordinate_list[0], coordinate_list[1])
-        coordinate_list.clear()
-        weight_a = helper.set_value_simple('Масса точки A:')
-
-        print(f'Введите координаты точки B:')
-        helper.set_value_start_letter(coordinate_list, 2, 'X')
-        point_b = Point(coordinate_list[0], coordinate_list[1])
-        coordinate_list.clear()
-        weight_b = helper.set_value_simple('Масса точки B:')
-
-        print(f'Введите координаты точки C:')
-        helper.set_value_start_letter(coordinate_list, 2, 'X')
-        point_c = Point(coordinate_list[0], coordinate_list[1])
-        coordinate_list.clear()
-        weight_c = helper.set_value_simple('Масса точки C:')
-
-        a = MaterialPoint(weight_a, point_a)
-        b = MaterialPoint(weight_b, point_b)
-        c = MaterialPoint(weight_c, point_c)
-
+        print('Вычислить значение функции Y для заданного пользователем значения X')
+        x = helper.set_real_number('x')
+        a = self.__get_a(x)
+        b = self.__get_b(x)
+        y = self.__get_y(a, b)
         print('----------------------------------------------------------')
-        print(f'A({a.point.x}, {a.point.y}) Масса = {a.weight}')
-        print(f'B({b.point.x}, {b.point.y}) Масса = {b.weight}')
-        print(f'C({c.point.x}, {c.point.y}) Масса = {b.weight}')
-
-        weight_point = self.__get_distance(a, b, c)
-        print(f'Координаты центра тяжести = ({weight_point.x}, {weight_point.y})')
+        print(f'a = (1 / ({x} + 5)) - (1 / ({x} - 9)) = {a}')
+        b_formula = f'cos({x})' if x >= 0 else f'sin({x})'
+        print(f'b = {b_formula} = {b}')
+        print(f'y = √({a} + {b}) = {y}')
         print('----------------------------------------------------------')
         self.task_ended_callback(self.task_number)
 
     @staticmethod
-    def __get_distance(a: MaterialPoint, b: MaterialPoint, c: MaterialPoint) -> Point:
-        x0 = round(
-            (a.weight * a.point.x + b.weight * b.point.x + c.weight * c.point.x) / (a.weight + b.weight + c.weight),
-            2
-        )
-        y0 = round(
-            (a.weight * a.point.y + b.weight * b.point.y + c.weight * c.point.y) / (a.weight + b.weight + c.weight),
-            2
-        )
-        return Point(x0, y0)
+    def __get_a(x: float) -> float:
+        return round((1 / (x + 5)) - (1 / (x - 9)), 2)
+
+    @staticmethod
+    def __get_b(x: float) -> float:
+        if x >= 0:
+            return round(math.cos(x), 4)
+        else:
+            return round(math.sin(x), 4)
+
+    @staticmethod
+    def __get_y(a: float, b: float) -> float:
+        try:
+            return round(math.sqrt(a + b), 2)
+        except:
+            print('Ошибка!')

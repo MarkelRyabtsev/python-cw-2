@@ -8,6 +8,15 @@ class Point:
 class Helper:
 
     @staticmethod
+    def set_one_symbol(description: str) -> str:
+        while True:
+            value = input(f'{description} : ')
+            if len(value) != 1:
+                print(f'Введите только один символ!')
+                continue
+            return value
+
+    @staticmethod
     def set_real_number(description: str, only_positive: bool = False, not_equal: float = None) -> float:
         while True:
             try:
