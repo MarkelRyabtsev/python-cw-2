@@ -1,5 +1,4 @@
-import math
-from helper import Helper, Point
+from helper import Helper
 
 
 class Task5:

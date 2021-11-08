@@ -17,7 +17,7 @@ class Task2:
         print(f'------------------------- Задача {self.task_number} -------------------------')
         print('Меньшее из двух чисел заменить их полусуммой, большее - их удвоенным произведением')
         x = helper.set_real_number('x')
-        y = helper.set_real_number('y', x)
+        y = helper.set_real_number('y', False, x)
         print('----------------------------------------------------------')
         checked_values = self.__check_values(x, y)
         print(f'Введенные x, y после проверки: \nx = {checked_values[0]}, \ny = {checked_values[1]}')
